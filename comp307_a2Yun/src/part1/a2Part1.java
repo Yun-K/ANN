@@ -66,12 +66,9 @@ public class a2Part1 {
             instance1_predicted_label = label_encoder.inverse_transform(instance1_prediction[0]);
         }
         System.out
-                .println("Predicted label for the first instance is: " + instance1_predicted_label);
-
-        if (1 == 1) {
-            return;
-
-        }
+                .println("------------------------\nPredicted label for the first instance is: "
+                         + instance1_predicted_label);
+        System.out.println("\t\twhich is: " + labels[0].equals(instance1_predicted_label) + "\n");
 
         // TODO: Perform a single backpropagation pass using the first instance only.
         // (In other words, train with 1 instance for 1 epoch!).

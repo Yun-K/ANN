@@ -37,12 +37,14 @@ public class NeuralNetwork {
      * 
      * @author Yun Zhou
      * @param input
+     *            should be the out put value of the forward_pass()
      * @return
      */
     public double sigmoid(double input) {
         double output = Double.NaN; // TODO!
 
-        // my codes here
+        // my codes start here:
+
         // the formular is from lec07
         double numerator = 1;
         double denominator = 1 + Math.exp(-input);
@@ -168,7 +170,9 @@ public class NeuralNetwork {
         for (int i = 0; i < instances.length; i++) {
             double[] instance = instances[i];
             double[][] outputs = forward_pass(instance);
+
             int predicted_class = -1; // TODO !Should be 0, 1, or 2.
+
             /*
              * my codes start here:
              * 
