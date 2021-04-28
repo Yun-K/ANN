@@ -78,9 +78,10 @@ public class NeuralNetwork {
             int inputNodeIndex = -1;
             // loop through {(w15,w16),(w25,W26),(W35,W36),(w45,w46)}
             for (double[] input_node_weights : this.hidden_layer_weights) {
-                // calculate the weighted sum
+                // calculate the weighted sum,
+                // it's i since either w15/w25/w35/w45 OR w16/w26/w36/w46, either i==0 or i==1
                 weighted_sum += input_node_weights[i];
-                // times the input value
+                // times the value of each input node, which is I1,I2,I3,I4
                 output += weighted_sum * inputs[++inputNodeIndex];
             }
             hidden_layer_outputs[i] = output;
