@@ -19,18 +19,12 @@ public class a2Part1 {
         String[] labels = Util.getLabels(lines);// the class of the Pengein(i.e.
                                                 // Adelie,Gentoo,)
 
-        // System.out.println(labels[119].toString() + "\n" + header[1].toString());
-        // if (1 == 1) {
-        //
-        // return;
-        // }
-
         double[][] instances = Util.getData(lines);
 
         // scale features to [0,1] to improve training
         Rescaler rescaler = new Rescaler(instances);
         rescaler.rescaleData(instances);
-        // System.out.println(Arrays.deepToString(instances));
+        System.out.println(Arrays.deepToString(instances));
 
         // We can"t use strings as labels directly in the network, so need to do some
         // transformations
@@ -75,7 +69,13 @@ public class a2Part1 {
         // TODO: Perform a single backpropagation pass using the first instance only.
         // (In other words, train with 1 instance for 1 epoch!).
         // Hint: you will need to first get the weights from a forward pass.
-        nn.forward_pass(instances[0]);//
+        double[][] forwardPassOutputs = nn.forward_pass(instances[0]);
+        // one Epoch:using all training instances from Training Sets to train once, including
+        // forwad && backward
+        double[][][] oneEpoch = nn.backward_propagate_error(instances[0],
+                forwardPassOutputs[0], forwardPassOutputs[1],
+                integer_encoded[0]);
+        nn.update_weights(oneEpoch[0], oneEpoch[1]);
 
         System.out.println("Weights after performing BP for first instance only:");
         System.out
@@ -84,6 +84,8 @@ public class a2Part1 {
                 .println("Output layer weights:\n" + Arrays.deepToString(nn.output_layer_weights));
 
         // TODO: Train for 100 epochs, on all instances.
+        nn.train(instances, integer_encoded, 100);
+
         System.out.println("\nAfter training:");
         System.out
                 .println("Hidden layer weights:\n" + Arrays.deepToString(nn.hidden_layer_weights));
@@ -99,6 +101,30 @@ public class a2Part1 {
         rescaler.rescaleData(instances_test);
 
         // TODO: Compute and print the test accuracy
+        int[] predictionsOnTestSet = nn.predict(instances_test);
+        // TODO: Print accuracy achieved over this epoch
+        double acc = Double.NaN, correctNum = 0.0;
+        label_encoder = new LabelEncoder(labels_test);
+        int[] desired_outputs = label_encoder.intEncode(labels_test);
+        for (int i = 0; i < predictionsOnTestSet.length; i++) {
+            int prediction = predictionsOnTestSet[i];
+            if (prediction == desired_outputs[i]) {
+                correctNum++;
+            }
+        }
+
+        acc = (correctNum / instances_test.length) * 100;
+
+        System.out.println(
+                "After 100 Epochs on training,"
+                           + "\n For the TEST set, we got  "
+                           + correctNum + " correct predicted test instances"
+                           + "\nThe size of test set is " + instances_test.length
+                           + "\nwhich means, we got: " + correctNum + " out of "
+                           + instances_test.length);
+
+        System.out.println("\nacc = " + String.format("%.2f", acc) + " %");
+
         System.out.println("Finished!");
     }
 

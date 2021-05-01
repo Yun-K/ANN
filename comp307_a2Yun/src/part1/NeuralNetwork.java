@@ -38,7 +38,7 @@ public class NeuralNetwork {
      * @author Yun Zhou
      * @param input
      *            should be the out put value of the forward_pass()
-     * @return
+     * @return the non-linear output
      */
     public double sigmoid(double input) {
         double output = Double.NaN; // TODO!
@@ -263,7 +263,7 @@ public class NeuralNetwork {
                 double[][] outputs = forward_pass(instance);
                 double[][][] delta_weights = backward_propagate_error(instance, outputs[0],
                         outputs[1], desired_outputs[i]);
-                int predicted_class = -1; // TODO!
+                int predicted_class = predict(instances)[i]; // TODO!
                 predictions[i] = predicted_class;
 
                 // We use online learning, i.e. update the weights after every instance.
@@ -278,7 +278,24 @@ public class NeuralNetwork {
 
             // TODO: Print accuracy achieved over this epoch
             double acc = Double.NaN;
-            System.out.println("acc = " + acc);
+            double correctNum = 0.0;
+            for (int i = 0; i < predictions.length; i++) {
+                int prediction = predictions[i];
+                if (prediction == desired_outputs[i]) {
+                    correctNum++;
+                }
+            }
+
+            acc = (correctNum / instances.length) * 100;
+
+            System.out.println(
+                    "For " + epoch + " th INDEX Epoch, the correct predicted Number is: "
+                               + correctNum
+                               + "\nThe size of instances is " + instances.length
+                               + "\nwhich means, we got: " + correctNum + " out of "
+                               + instances.length);
+
+            System.out.println("\nacc = " + String.format("%.2f", acc) + " %");
         }
     }
 
