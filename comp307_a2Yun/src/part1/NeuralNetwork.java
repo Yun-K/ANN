@@ -86,10 +86,7 @@ public class NeuralNetwork {
                 // times the value of each input node, which is I1,I2,I3,I4
                 output += weighted * inputs[++inputNodeIndex];
             }
-
-            output = sigmoid(output);
-
-            hidden_layer_outputs[i] = output;
+            hidden_layer_outputs[i] = sigmoid(output);
         }
 
         // for output layer,the calculation is the same as above
@@ -227,9 +224,33 @@ public class NeuralNetwork {
         return new double[][][] { delta_output_layer_weights, delta_hidden_layer_weights };
     }
 
+    /**
+     * Description: <br/>
+     * Update corresponing weights from the input args.
+     * <p>
+     * HINT: new Weight = deltaWeight + origionalWeight
+     * 
+     * @author Yun Zhou
+     * @param delta_output_layer_weights
+     *            to be updated
+     * @param delta_hidden_layer_weights
+     *            to be updated
+     */
     public void update_weights(double[][] delta_output_layer_weights,
             double[][] delta_hidden_layer_weights) {
         // TODO! Update the weights
+
+        for (int i = 0; i < this.output_layer_weights.length; i++) {
+            for (int j = 0; j < this.output_layer_weights[i].length; j++) {
+                output_layer_weights[i][j] += delta_output_layer_weights[i][j];
+            }
+        }
+
+        for (int i = 0; i < this.hidden_layer_weights.length; i++) {
+            for (int j = 0; j < this.hidden_layer_weights[i].length; j++) {
+                hidden_layer_weights[i][j] += delta_hidden_layer_weights[i][j];
+            }
+        }
         System.out.println("Placeholder");
     }
 
@@ -278,11 +299,11 @@ public class NeuralNetwork {
             double[] output_layer_outputs = outputs[1];
 
             //
-            double maxO = Double.NEGATIVE_INFINITY;
+            double max = Double.NEGATIVE_INFINITY;
             for (int index = 0; index < output_layer_outputs.length; index++) {
-                double d = output_layer_outputs[index];
-                if (d > maxO) {
-                    maxO = d;
+                double realOutPut = output_layer_outputs[index];
+                if (realOutPut > max) {
+                    max = realOutPut;
                     predicted_class = index;
                 }
             }
