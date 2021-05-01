@@ -28,7 +28,7 @@ public class a2Part1 {
         // scale features to [0,1] to improve training
         Rescaler rescaler = new Rescaler(instances);
         rescaler.rescaleData(instances);
-        System.out.println(Arrays.deepToString(instances));
+        // System.out.println(Arrays.deepToString(instances));
 
         // We can"t use strings as labels directly in the network, so need to do some
         // transformations

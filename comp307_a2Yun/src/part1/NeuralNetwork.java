@@ -76,16 +76,19 @@ public class NeuralNetwork {
             // TODO! Calculate the weighted sum, and then compute the final output.
 
             // the formular is from the lec-08,
-            double weighted_sum = 0, output = 0;
+            double output = 0;
             int inputNodeIndex = -1;
             // loop through {(w15,w16),(w25,W26),(W35,W36),(w45,w46)}
             for (double[] input_node_weights : this.hidden_layer_weights) {
                 // calculate the weighted sum,
                 // it's i since either w15/w25/w35/w45 OR w16/w26/w36/w46, either i==0 or i==1
-                weighted_sum += input_node_weights[i];
+                double weighted = input_node_weights[i];
                 // times the value of each input node, which is I1,I2,I3,I4
-                output += weighted_sum * inputs[++inputNodeIndex];
+                output += weighted * inputs[++inputNodeIndex];
             }
+
+            output = sigmoid(output);
+
             hidden_layer_outputs[i] = output;
         }
 
@@ -94,15 +97,16 @@ public class NeuralNetwork {
         for (int i = 0; i < num_outputs; i++) {
             // TODO! Calculate the weighted sum, and then compute the final output.
 
-            double weighted_sum = 0, output = 0;
+            double output = 0;
             int hiddenNodeIndex = -1;
             for (double[] hidden_node_weights : this.output_layer_weights) {
                 // calculate the weighted sum first
-                weighted_sum += hidden_node_weights[i];
+                double weighted = hidden_node_weights[i];
                 // times the value of the hidden nodes
-                output += weighted_sum * hidden_layer_outputs[++hiddenNodeIndex];
+                output += weighted * hidden_layer_outputs[++hiddenNodeIndex];
             }
 
+            output = sigmoid(output);// pass it into sigmoid
             output_layer_outputs[i] = output;
         }
         return new double[][] { hidden_layer_outputs, output_layer_outputs };
@@ -113,6 +117,22 @@ public class NeuralNetwork {
 
         double[] output_layer_betas = new double[num_outputs];
         // TODO! Calculate output layer betas.
+
+        // encode 1 as [1, 0, 0], 2 as [0, 1, 0],
+        // and 3 as [0, 0, 1] (to fit with our network outputs!)
+        int[] desiredOutputs_array = new int[3];
+        switch (desired_outputs) {
+        case 0:
+            desiredOutputs_array = new int[] { 1, 0, 0 };
+            break;
+        case 1:
+            desiredOutputs_array = new int[] { 0, 1, 0 };
+            break;
+        case 2:
+            desiredOutputs_array = new int[] { 0, 0, 1 };
+            break;
+        }
+
         System.out.println("OL betas: " + Arrays.toString(output_layer_betas));
 
         double[] hidden_layer_betas = new double[num_hidden];
