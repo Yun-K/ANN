@@ -118,6 +118,9 @@ public class NeuralNetwork {
         double[] output_layer_betas = new double[num_outputs];
         // TODO! Calculate output layer betas.
 
+        /*
+         * first, assign the desired output, so that can calculate the error
+         */
         // encode 1 as [1, 0, 0], 2 as [0, 1, 0],
         // and 3 as [0, 0, 1] (to fit with our network outputs!)
         int[] desiredOutputs_array = new int[3];
@@ -133,19 +136,92 @@ public class NeuralNetwork {
             break;
         }
 
+        /*
+         * from lec08,slide 14-15
+         */
+        // for calculating the output layer
+        // the error:beta = desired-real
+        for (int i = 0; i < output_layer_outputs.length; i++) {
+            double outputLayerNode_output = output_layer_outputs[i];
+            // beta = desired - real output
+            double beta = desiredOutputs_array[i] - outputLayerNode_output;
+            // assign the corresponding beta into array
+            output_layer_betas[i] = beta;
+        }
         System.out.println("OL betas: " + Arrays.toString(output_layer_betas));
 
+        /*
+         * for hidden layers error: beta = weight1 * outPutNodeError(aka beta)1 * slope1, like
+         * the forward slope = (1-Output)*outout
+         */
         double[] hidden_layer_betas = new double[num_hidden];
         // TODO! Calculate hidden layer betas.
+
+        for (int i = 0; i < hidden_layer_outputs.length; i++) {
+            double beta = 0;
+            for (int j = 0; j < output_layer_outputs.length; j++) {
+                double outputLayerNode_output = output_layer_outputs[j];// assign corresponding
+                                                                        // temp var
+                double slope = outputLayerNode_output * (1 - outputLayerNode_output);
+                // weight * value
+                beta += output_layer_weights[i][j]
+                        * slope // slope=Oj*(1-Oj)
+                        * output_layer_betas[j];// beta (aka error)
+            }
+
+            hidden_layer_betas[i] = beta;
+
+        }
+
         System.out.println("HL betas: " + Arrays.toString(hidden_layer_betas));
 
+        // TODO! Calculate output layer weight changes.
+        /*
+         * lec08, slide 16, formula:delta Wij = LearningRate*Oi*(Oj*(1-Oj))*Betaj
+         * 
+         * Now the (beta)error signal for each neuron is computed, start to compute the
+         * derivative (differential coefficient) of each neuron,
+         * 
+         * and the weights coefficients of each neuron input node may be modified
+         */
         // This is a HxO array (H hidden nodes, O outputs)
         double[][] delta_output_layer_weights = new double[num_hidden][num_outputs];
-        // TODO! Calculate output layer weight changes.
 
+        for (int i = 0; i < hidden_layer_outputs.length; i++) {
+            for (int j = 0; j < output_layer_outputs.length; j++) {
+                // get slope first
+                double slope = output_layer_outputs[j] * (1 - output_layer_outputs[j]);
+                // then do the calculation
+                double weightChange = this.learning_rate
+                        * hidden_layer_outputs[i]// Oi
+                        * slope// slope = Oj*(1-Oj)
+                        * output_layer_betas[j];
+
+                delta_output_layer_weights[i][j] = weightChange;
+            }
+
+        }
+
+        /*
+         * the same calculation as above delta_output_layer_weights.
+         * 
+         */
         // This is a IxH array (I inputs, H hidden nodes)
         double[][] delta_hidden_layer_weights = new double[num_inputs][num_hidden];
         // TODO! Calculate hidden layer weight changes.
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = 0; j < hidden_layer_outputs.length; j++) {
+                // get slope first
+                double slope = hidden_layer_outputs[j] * (1 - hidden_layer_outputs[j]);
+                // then do the calculation
+                double weightChange = this.learning_rate
+                        * inputs[i]// Oi
+                        * slope// slope = Oj*(1-Oj)
+                        * output_layer_betas[j];
+
+                delta_hidden_layer_weights[i][j] = weightChange;
+            }
+        }
 
         // Return the weights we calculated, so they can be used to update all the weights.
         return new double[][][] { delta_output_layer_weights, delta_hidden_layer_weights };
