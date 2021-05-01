@@ -6,11 +6,13 @@ import java.util.List;
 public class a2Part1 {
 
     public static void main(String[] _ignored) {
-        // String filePath_train = "penguins307-train.csv";
-        // String filePath_test = "penguins307-test.csv";
+        String filePath_train = "penguins307-train.csv";
+        String filePath_test = "penguins307-test.csv";
 
-        String filePath_train = "/Users/11973/git/comp307_a2_yun/comp307_a2Yun/ass2_files/part1/penguins307-train.csv";
-        String filePath_test = "/Users/11973/git/comp307_a2_yun/comp307_a2Yun/ass2_files/part1/penguins307-test.csv";
+        // String filePath_train =
+        // "/Users/11973/git/comp307_a2_yun/comp307_a2Yun/ass2_files/part1/penguins307-train.csv";
+        // String filePath_test =
+        // "/Users/11973/git/comp307_a2_yun/comp307_a2Yun/ass2_files/part1/penguins307-test.csv";
 
         List<String[]> lines = Util.getLines(filePath_train);
         String[] header = lines.remove(0);//
