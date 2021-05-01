@@ -217,7 +217,7 @@ public class NeuralNetwork {
                 double weightChange = this.learning_rate
                         * inputs[i]// Oi
                         * slope// slope = Oj*(1-Oj)
-                        * output_layer_betas[j];
+                        * hidden_layer_betas[j];
 
                 delta_hidden_layer_weights[i][j] = weightChange;
             }
