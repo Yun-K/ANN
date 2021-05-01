@@ -266,8 +266,8 @@ public class NeuralNetwork {
         for (int i = 0; i < instances.length; i++) {
             double[] instance = instances[i];
             double[][] outputs = forward_pass(instance);
-
-            int predicted_class = -1; // TODO !Should be 0, 1, or 2.
+            // it Should be 0, 1, or 2.
+            int predicted_class = -1; // TODO
 
             /*
              * my codes start here:
@@ -276,8 +276,15 @@ public class NeuralNetwork {
             // the 2nd row of the outputs(i.e. forward_pass()) is the output layer,
             // so assign it
             double[] output_layer_outputs = outputs[1];
+
+            //
+            double maxO = Double.NEGATIVE_INFINITY;
             for (int index = 0; index < output_layer_outputs.length; index++) {
-                predicted_class = (int) output_layer_outputs[index];
+                double d = output_layer_outputs[index];
+                if (d > maxO) {
+                    maxO = d;
+                    predicted_class = index;
+                }
             }
 
             // my codes end
