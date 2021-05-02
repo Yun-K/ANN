@@ -11,6 +11,7 @@ import org.jgap.gp.CommandGene;
 import org.jgap.gp.GPProblem;
 import org.jgap.gp.function.Add;
 import org.jgap.gp.function.Multiply;
+import org.jgap.gp.function.Subtract;
 import org.jgap.gp.impl.DeltaGPFitnessEvaluator;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.GPGenotype;
@@ -104,15 +105,20 @@ public class GPProblem1 extends GPProblem {
         // Arguments of result-producing chromosome: none
         Class[][] argTypes = { {} };
 
-        // Next, we define the set of available GP commands and terminals to
-        // use.
+        // Next, we define the set of available GP commands
+        // and terminals to use.
         CommandGene[][] nodeSets = {
                 {
                         _xVariable,
-                        _yVariable,
+                        // _yVariable,
                         new Add(config, CommandGene.IntegerClass),
                         new Multiply(config, CommandGene.IntegerClass),
-                        new Terminal(config, CommandGene.IntegerClass, 0.0, 10.0, true)
+                        // terminal represents inputs
+                        new Terminal(config, CommandGene.IntegerClass, 0.0, 10.0, true),
+
+                        // add multiply & subtracts
+                        new Subtract(config, CommandGene.DoubleClass),
+                        new Multiply(config, CommandGene.DoubleClass)
                 }
         };
 
