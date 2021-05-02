@@ -117,7 +117,13 @@ public class GPProblem1 extends GPProblem {
 
                         // add multiply & subtracts
                         new Subtract(config, CommandGene.DoubleClass),
-                        new Multiply(config, CommandGene.DoubleClass)
+                        new Multiply(config, CommandGene.DoubleClass),
+                        new org.jgap.gp.function.Abs(config, CommandGene.DoubleClass),
+                        new org.jgap.gp.function.Sine(config, CommandGene.DoubleClass),
+                        new org.jgap.gp.function.Cosine(config, CommandGene.DoubleClass),
+                        new org.jgap.gp.function.Log(config, CommandGene.DoubleClass),
+                        new org.jgap.gp.function.Exp(config, CommandGene.DoubleClass)
+
                 }
         };
 
