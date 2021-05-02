@@ -69,9 +69,8 @@ public class MyFitnessFunction extends GPFitnessFunction {
             // _yVariable.set(_input2[i]);//in our assignment, y is not input
 
             // Execute the genetically engineered algorithm
-
             // by looking at the source code and the code from the tutorial website ,
-            // I can obtain NO_ARG is new Object[0]
+            // I can obtain arg1 should be new Object[0]
             long value = (long) program.execute_double(0, new Object[0]);
 
             // The closer longResult gets to 0 the better the algorithm.

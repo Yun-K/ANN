@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.jgap.InvalidConfigurationException;
@@ -40,6 +41,8 @@ public class GPProblem1 extends GPProblem {
 
     private Constant zero;
 
+    private Constant R;
+
     private Variable _xVariable, _yVariable;
 
     /**
@@ -73,6 +76,8 @@ public class GPProblem1 extends GPProblem {
         config.setMaxInitDepth(4);
         config.setPopulationSize(1000);
         config.setMaxCrossoverDepth(8);
+        config.setReproductionProb((float) 0.015);// 0.015 == 1.5% probability
+        config.setMutationProb((float) 0.015);
 
         // assigned my fitness function to GPConfiguration using setFitnessFunction().
         config.setFitnessFunction(
@@ -82,6 +87,7 @@ public class GPProblem1 extends GPProblem {
 
         // config.setPopulationSize(1000);
         zero = new Constant(config, CommandGene.DoubleClass, 0);
+        this.R = new Constant(config, CommandGene.DoubleClass, new Random().nextDouble());
     }
 
     /**
@@ -117,7 +123,7 @@ public class GPProblem1 extends GPProblem {
                         new Multiply(config, CommandGene.DoubleClass),
                         // add multiply & subtracts
                         new org.jgap.gp.function.Subtract(config, CommandGene.DoubleClass),
-                        new org.jgap.gp.function.Multiply(config, CommandGene.DoubleClass),
+                        new org.jgap.gp.function.Multiply(config, CommandGene.DoubleClass)
                 // new org.jgap.gp.function.Abs(config, CommandGene.DoubleClass),
                 // new org.jgap.gp.function.Sine(config, CommandGene.DoubleClass),
                 // new org.jgap.gp.function.Cosine(config, CommandGene.DoubleClass),
