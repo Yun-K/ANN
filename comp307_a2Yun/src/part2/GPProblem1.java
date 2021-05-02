@@ -40,7 +40,6 @@ public class GPProblem1 extends GPProblem {
 
     private Constant zero;
 
-    /***/
     private Variable _xVariable, _yVariable;
 
     /**
@@ -111,10 +110,10 @@ public class GPProblem1 extends GPProblem {
                 {
                         _xVariable,
                         // _yVariable,
-                        new Add(config, CommandGene.IntegerClass),
-                        new Multiply(config, CommandGene.IntegerClass),
+                        new Add(config, CommandGene.DoubleClass),
+                        new Multiply(config, CommandGene.DoubleClass),
                         // terminal represents inputs
-                        new Terminal(config, CommandGene.IntegerClass, 0.0, 10.0, true),
+                        new Terminal(config, CommandGene.DoubleClass, 0.0, 10.0, true),
 
                         // add multiply & subtracts
                         new Subtract(config, CommandGene.DoubleClass),
