@@ -110,19 +110,19 @@ public class GPProblem1 extends GPProblem {
                 {
                         _xVariable,
                         // _yVariable,
-                        new Add(config, CommandGene.DoubleClass),
-                        new Multiply(config, CommandGene.DoubleClass),
                         // terminal represents inputs
                         new Terminal(config, CommandGene.DoubleClass, 0.0, 10.0, true),
 
-                        // add multiply & subtracts
-                        new Subtract(config, CommandGene.DoubleClass),
+                        new Add(config, CommandGene.DoubleClass),
                         new Multiply(config, CommandGene.DoubleClass),
-                        new org.jgap.gp.function.Abs(config, CommandGene.DoubleClass),
-                        new org.jgap.gp.function.Sine(config, CommandGene.DoubleClass),
-                        new org.jgap.gp.function.Cosine(config, CommandGene.DoubleClass),
-                        new org.jgap.gp.function.Log(config, CommandGene.DoubleClass),
-                        new org.jgap.gp.function.Exp(config, CommandGene.DoubleClass)
+                        // add multiply & subtracts
+                        new org.jgap.gp.function.Subtract(config, CommandGene.DoubleClass),
+                        new org.jgap.gp.function.Multiply(config, CommandGene.DoubleClass),
+                // new org.jgap.gp.function.Abs(config, CommandGene.DoubleClass),
+                // new org.jgap.gp.function.Sine(config, CommandGene.DoubleClass),
+                // new org.jgap.gp.function.Cosine(config, CommandGene.DoubleClass),
+                // new org.jgap.gp.function.Log(config, CommandGene.DoubleClass),
+                // new org.jgap.gp.function.Exp(config, CommandGene.DoubleClass)
 
                 }
         };
