@@ -11,6 +11,8 @@ import java.util.Arrays;
  * <p>
  * https://blog.csdn.net/ft_sunshine/article/details/90221691?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161987378916780265440035%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=161987378916780265440035&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-2-90221691.pc_search_result_before_js&utm_term=%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD
  * <p>
+ * http://www.uml.org.cn/ai/202005282.asp
+ * <p>
  * HINT: They only contains the Maths calculation without any codes, all codes are written by
  * myself.
  * 
