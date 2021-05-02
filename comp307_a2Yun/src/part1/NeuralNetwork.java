@@ -2,6 +2,21 @@ package part1;
 
 import java.util.Arrays;
 
+/**
+ * Description: <br/>
+ * Except slides, the following websites also helps me understand the calculation logic of
+ * feedforward & backpropagate():
+ * <p>
+ * http://galaxy.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html
+ * <p>
+ * https://blog.csdn.net/ft_sunshine/article/details/90221691?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161987378916780265440035%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=161987378916780265440035&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-2-90221691.pc_search_result_before_js&utm_term=%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD
+ * <p>
+ * HINT: They only contains the Maths calculation without any codes, all codes are written by
+ * myself.
+ * 
+ * @author Yun Zhou 300442776
+ * @version
+ */
 public class NeuralNetwork {
     public final double[][] hidden_layer_weights;
 
@@ -139,9 +154,9 @@ public class NeuralNetwork {
         // for calculating the output layer
         // the error:beta = desired-real
         for (int i = 0; i < output_layer_outputs.length; i++) {
-            double outputLayerNode_output = output_layer_outputs[i];
+            double outputLayerNode_real_output = output_layer_outputs[i];
             // beta = desired - real output
-            double beta = desiredOutputs_array[i] - outputLayerNode_output;
+            double beta = desiredOutputs_array[i] - outputLayerNode_real_output;
             // assign the corresponding beta into array
             output_layer_betas[i] = beta;
         }
@@ -288,14 +303,15 @@ public class NeuralNetwork {
 
             acc = (correctNum / instances.length) * 100;
 
+            int order_epoch = epoch + 1;
             System.out.println(
-                    "For " + epoch + " th INDEX Epoch, the correct predicted Number is: "
+                    "For " + order_epoch + " th Epoch, the correct predicted Number is: "
                                + correctNum
                                + "\nThe size of instances is " + instances.length
                                + "\nwhich means, we got: " + correctNum + " out of "
                                + instances.length);
 
-            System.out.println("\nacc = " + String.format("%.2f", acc) + " %");
+            System.out.println("acc = " + String.format("%.2f", acc) + " %\n\n");
         }
     }
 
@@ -315,7 +331,8 @@ public class NeuralNetwork {
             // so assign it
             double[] output_layer_outputs = outputs[1];
 
-            //
+            // use for loop to find which index has the biggest value among others,
+            // and assign the predicted_class
             double max = Double.NEGATIVE_INFINITY;
             for (int index = 0; index < output_layer_outputs.length; index++) {
                 double realOutPut = output_layer_outputs[index];
