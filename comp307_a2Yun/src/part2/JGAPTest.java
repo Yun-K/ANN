@@ -29,7 +29,7 @@ public class JGAPTest {
          */
         int generation_time = 0;
         while (++generation_time < 200) {
-            gp.evolve(generation_time);// evolve it
+            gp.evolve(1);// evolve it
             double fitnessValue = gp.getFittestProgramComputed().getFitnessValue();
             // check whether the fitness value is smaller than a predefined value,
             // if so, then meet the stopping criteria
