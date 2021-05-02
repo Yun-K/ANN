@@ -9,10 +9,13 @@ import java.util.Scanner;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.gp.CommandGene;
 import org.jgap.gp.GPProblem;
+import org.jgap.gp.function.Add;
+import org.jgap.gp.function.Multiply;
 import org.jgap.gp.impl.DeltaGPFitnessEvaluator;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.GPGenotype;
 import org.jgap.gp.terminal.Constant;
+import org.jgap.gp.terminal.Terminal;
 import org.jgap.gp.terminal.Variable;
 
 /**
@@ -78,20 +81,64 @@ public class GPProblem1 extends GPProblem {
         config.setStrictProgramCreation(true);
 
         // config.setPopulationSize(1000);
-        // zero = new Constant(config, CommandGene.IntegerClass, 0);
+        zero = new Constant(config, CommandGene.IntegerClass, 0);
     }
 
+    /**
+     * Step2:Create an initial Genotype
+     * <p>
+     * The genotype represents a configured GP environment.
+     * 
+     * This is where we pass the references to _xVariable (inputs) used by the fitness
+     * function.
+     * 
+     * @see org.jgap.gp.GPProblem#create()
+     */
     @Override
     public GPGenotype create() throws InvalidConfigurationException {
         GPConfiguration config = getGPConfiguration();
-        Class[] types = { CommandGene.VoidClass };
+
+        // The return type of the GP program.
+        Class[] types = { CommandGene.DoubleClass };// inputs are double, so use double
+
+        // Arguments of result-producing chromosome: none
         Class[][] argTypes = { {} };
-        CommandGene[][] nodeSets = { { zero } };
+
+        // Next, we define the set of available GP commands and terminals to
+        // use.
+        CommandGene[][] nodeSets = {
+                {
+                        _xVariable,
+                        _yVariable,
+                        new Add(config, CommandGene.IntegerClass),
+                        new Multiply(config, CommandGene.IntegerClass),
+                        new Terminal(config, CommandGene.IntegerClass, 0.0, 10.0, true)
+                }
+        };
+
         GPGenotype result = GPGenotype.randomInitialGenotype(config, types, argTypes,
                 nodeSets, 20, true);
+
         return result;
+
+        // GPConfiguration config = getGPConfiguration();
+        // Class[] types = { CommandGene.VoidClass };
+        // Class[][] argTypes = { {} };
+        // CommandGene[][] nodeSets = { { zero } };
+        // GPGenotype result = GPGenotype.randomInitialGenotype(config, types, argTypes,
+        // nodeSets, 20, true);
+        // return result;
     }
 
+    /**
+     * Description: <br/>
+     * Read the specific regression.txt file and transform & assign it into the java data
+     * structure.
+     * 
+     * @author Yun Zhou
+     * @param filePath
+     *            the filepath to be specified
+     */
     public void readFile(String filePath) {
         try {
             Scanner scan = new Scanner(new File(filePath));
@@ -123,6 +170,7 @@ public class GPProblem1 extends GPProblem {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        // postCondition check to check whether they have the same size, for debugging
         assert this.X_LIST.size() == this.Y_LIST.size();
     }
 }

@@ -28,8 +28,5 @@ public class JGAPTest {
         System.out.println("\n Formula:  ");
         gp.outputSolution(gp.getAllTimeBest());
 
-        //
-        new GPProblem1().readFile("regression.txt");
-
     }
 }
