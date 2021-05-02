@@ -131,8 +131,7 @@ public class NeuralNetwork {
             }
             output += output_layer_bias[i];// add outputLayer bias
 
-            output = sigmoid(output);// pass it into sigmoid
-            output_layer_outputs[i] = output;
+            output_layer_outputs[i] = sigmoid(output);// pass it into sigmoid
         }
         return new double[][] { hidden_layer_outputs, output_layer_outputs };
     }
@@ -249,12 +248,31 @@ public class NeuralNetwork {
         }
 
         /*
-         * my codes for delta_bias for the output layer
+         * Add bias into the forward function can get 90% accuracy, without bias we can only
+         * get 80%.
+         * 
+         * Looks like dont need to do the backward to update the bias .
+         * 
+         * 
          */
-        double[] delta_output_layer_bias = new double[num_outputs];
-        for (int i = 0; i < hidden_layer_outputs.length; i++) {
-
-        }
+        // /*
+        // * my codes for delta_bias for the output layer
+        // */
+        // double[] delta_output_layer_bias = new double[num_outputs];
+        // for (int i = 0; i < hidden_layer_outputs.length; i++) {
+        //
+        // }
+        // /*
+        // * my codes for delta_bias for hidden layer
+        // */
+        // double[] delta_hidden_layer_bias = new double[num_hidden];
+        // for (int i = 0; i < hidden_layer_outputs.length; i++) {
+        // double slope = hidden_layer_outputs[i] * (1 - hidden_layer_outputs[i]);
+        // double updatedBias = this.learning_rate
+        // * slope
+        // * hidden_layer_bias[i];
+        // delta_hidden_layer_bias[i] = updatedBias;
+        // }
 
         // Return the weights we calculated, so they can be used to update all the weights.
         return new double[][][] { delta_output_layer_weights, delta_hidden_layer_weights };
