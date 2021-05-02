@@ -81,7 +81,7 @@ public class GPProblem1 extends GPProblem {
         config.setStrictProgramCreation(true);
 
         // config.setPopulationSize(1000);
-        zero = new Constant(config, CommandGene.IntegerClass, 0);
+        zero = new Constant(config, CommandGene.DoubleClass, 0);
     }
 
     /**

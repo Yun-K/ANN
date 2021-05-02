@@ -21,10 +21,10 @@ public class JGAPTest {
 
         GPProblem problem = new GPProblem1();
         GPGenotype gp = problem.create();
+        gp.evolve(200);
         gp.setVerboseOutput(true);
         // System.out.println("Yay, I can run!");
 
-        gp.evolve(200);
         System.out.println("\n Formula:  ");
         gp.outputSolution(gp.getAllTimeBest());
 
