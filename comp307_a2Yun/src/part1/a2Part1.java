@@ -40,10 +40,11 @@ public class a2Part1 {
         int n_in = 4, n_hidden = 2, n_out = 3;
         double learning_rate = 0.2;
 
-        double[][] initial_hidden_layer_weights = new double[][] { { -0.28, -0.22 }, { 0.08, 0.20 },
-                { -0.30, 0.32 }, { 0.10, 0.01 } };
-        double[][] initial_output_layer_weights = new double[][] { { -0.29, 0.03, 0.21 },
-                { 0.08, 0.13, -0.36 } };
+        double[][] initial_hidden_layer_weights = new double[][] {
+                { -0.28, -0.22 }, { 0.08, 0.20 }, { -0.30, 0.32 }, { 0.10, 0.01 } };
+
+        double[][] initial_output_layer_weights = new double[][] {
+                { -0.29, 0.03, 0.21 }, { 0.08, 0.13, -0.36 } };
 
         NeuralNetwork nn = new NeuralNetwork(n_in, n_hidden, n_out, initial_hidden_layer_weights,
                 initial_output_layer_weights, learning_rate);
@@ -82,6 +83,10 @@ public class a2Part1 {
                 .println("Hidden layer weights:\n" + Arrays.deepToString(nn.hidden_layer_weights));
         System.out
                 .println("Output layer weights:\n" + Arrays.deepToString(nn.output_layer_weights));
+
+        // if (1 == 1) {
+        // return;
+        // }
 
         // TODO: Train for 100 epochs, on all instances.
         nn.train(instances, integer_encoded, 100);
@@ -123,7 +128,7 @@ public class a2Part1 {
                            + "\nwhich means, we got: " + correctNum + " out of "
                            + instances_test.length);
 
-        System.out.println("\nacc = " + String.format("%.2f", acc) + " %");
+        System.out.println("acc = " + String.format("%.2f", acc) + " %");
 
         System.out.println("Finished!");
     }

@@ -30,6 +30,16 @@ public class NeuralNetwork {
 
     private final double learning_rate;
 
+    /**
+     * ADD hidden layer Bias
+     */
+    double[] hidden_layer_bias = new double[] { -0.02, -0.20 };
+
+    /**
+     * add outputLayer bias
+     */
+    double[] output_layer_bias = new double[] { -0.33, 0.26, 0.06 };
+
     public NeuralNetwork(int num_inputs, int num_hidden, int num_outputs,
             double[][] initial_hidden_layer_weights, double[][] initial_output_layer_weights,
             double learning_rate) {
@@ -42,6 +52,7 @@ public class NeuralNetwork {
         this.output_layer_weights = initial_output_layer_weights;
 
         this.learning_rate = learning_rate;
+
     }
 
     /**
@@ -101,6 +112,7 @@ public class NeuralNetwork {
                 // times the value of each input node, which is I1,I2,I3,I4
                 output += weighted * inputs[++inputNodeIndex];
             }
+            output += hidden_layer_bias[i];// add hidden layer bias
             hidden_layer_outputs[i] = sigmoid(output);
         }
 
@@ -117,6 +129,7 @@ public class NeuralNetwork {
                 // times the value of the hidden nodes
                 output += weighted * hidden_layer_outputs[++hiddenNodeIndex];
             }
+            output += output_layer_bias[i];// add outputLayer bias
 
             output = sigmoid(output);// pass it into sigmoid
             output_layer_outputs[i] = output;
@@ -235,6 +248,14 @@ public class NeuralNetwork {
             }
         }
 
+        /*
+         * my codes for delta_bias for the output layer
+         */
+        double[] delta_output_layer_bias = new double[num_outputs];
+        for (int i = 0; i < hidden_layer_outputs.length; i++) {
+
+        }
+
         // Return the weights we calculated, so they can be used to update all the weights.
         return new double[][][] { delta_output_layer_weights, delta_hidden_layer_weights };
     }
@@ -271,7 +292,8 @@ public class NeuralNetwork {
 
     public void train(double[][] instances, int[] desired_outputs, int epochs) {
         for (int epoch = 0; epoch < epochs; epoch++) {
-            System.out.println("epoch = " + epoch);
+            int order_epoch = epoch + 1;
+            System.out.println("epoch = " + order_epoch);
             int[] predictions = new int[instances.length];
             for (int i = 0; i < instances.length; i++) {
                 double[] instance = instances[i];
@@ -303,7 +325,6 @@ public class NeuralNetwork {
 
             acc = (correctNum / instances.length) * 100;
 
-            int order_epoch = epoch + 1;
             System.out.println(
                     "For " + order_epoch + " th Epoch, the correct predicted Number is: "
                                + correctNum
