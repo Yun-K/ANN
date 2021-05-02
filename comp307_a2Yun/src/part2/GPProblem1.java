@@ -12,10 +12,18 @@ import org.jgap.gp.GPProblem;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.GPGenotype;
 import org.jgap.gp.terminal.Constant;
+import org.jgap.gp.terminal.Variable;
 
 /**
  * This is purposefully "dumb". Do not use any of the GP design (terminals, nodes, types, ...)
  * in this class in your assignment --- it is wrong!
+ * 
+ * 
+ * <p>
+ * * https://cvalcarcel.wordpress.com/2009/08/04/jgap-a-firstsimple-tutorial/
+ * <p>
+ * Above is the helpful tutorial that I found.
+ * 
  */
 public class GPProblem1 extends GPProblem {
 
@@ -29,9 +37,11 @@ public class GPProblem1 extends GPProblem {
 
     public GPProblem1() throws InvalidConfigurationException {
         super(new GPConfiguration());
-        readFile("regression.txt");
+        readFile("regression.txt");// read files
 
         GPConfiguration config = getGPConfiguration();
+        Variable.create(config, "X", CommandGene.DoubleClass);
+
         config.setPopulationSize(1000);
         zero = new Constant(config, CommandGene.IntegerClass, 0);
     }
