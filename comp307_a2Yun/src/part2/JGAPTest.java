@@ -18,6 +18,7 @@ import org.jgap.gp.impl.GPGenotype;
 public class JGAPTest {
 
     public static void main(String args[]) throws InvalidConfigurationException {
+
         GPProblem problem = new GPProblem1();
         GPGenotype gp = problem.create();
         gp.setVerboseOutput(true);
@@ -26,6 +27,9 @@ public class JGAPTest {
         gp.evolve(200);
         System.out.println("\n Formula:  ");
         gp.outputSolution(gp.getAllTimeBest());
+
+        //
+        new GPProblem1().readFile("regression.txt");
 
     }
 }
