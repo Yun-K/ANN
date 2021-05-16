@@ -67,7 +67,6 @@ public class a2Part1 {
                          + instance1_predicted_label);
         System.out.println("\t\twhich is: " + labels[0].equals(instance1_predicted_label) + "\n");
 
-        if(1==1)return;
         // TODO: Perform a single backpropagation pass using the first instance only.
         // (In other words, train with 1 instance for 1 epoch!).
         // Hint: you will need to first get the weights from a forward pass.
