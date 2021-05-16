@@ -70,16 +70,14 @@ public class NeuralNetwork {
      */
     public double sigmoid(double input) {
         double output = Double.NaN; // TODO!
-
         // my codes start here:
-
         // the formular is from lec07
-        double numerator = 1;
-        double denominator = 1 + Math.exp(-input);
+        // double numerator = 1;
+        // double denominator = 1 + Math.exp(-input);
+        // output = numerator / denominator;
+        // return output;
 
-        output = numerator / denominator;
-
-        return output;
+        return 1 / (1 + Math.exp(-input));
     }
 
     /**
@@ -102,6 +100,11 @@ public class NeuralNetwork {
         double[] hidden_layer_outputs = new double[num_hidden];
         for (int i = 0; i < num_hidden; i++) {
             // TODO! Calculate the weighted sum, and then compute the final output.
+
+            // double weightedSum = 0;
+            // for (int j = 0; j < hidden_layer_weights.length; j++) {
+            // weightedSum += hidden_layer_weights[i][j] + ;
+            // }
 
             // the formular is from the lec-08,
             double output = 0;
